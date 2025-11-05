@@ -2,8 +2,6 @@
   "name": "text-to-docx-converter",
   "version": "1.0.0",
   "description": "Convert plain text to DOCX format for Dify integration",
-  "main": "api/text-to-docx.js",
-  "type": "module",
   "scripts": {
     "dev": "vercel dev",
     "deploy": "vercel --prod"
@@ -16,6 +14,6 @@
     "vercel": "^33.0.0"
   },
   "engines": {
-    "node": ">=18.x"
+    "node": "18.x"
   }
 }

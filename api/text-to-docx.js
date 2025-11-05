@@ -1,19 +1,11 @@
 // api/text-to-docx.js
 // Vercel Serverless Function for Text to DOCX Conversion
 
-import { Document, Paragraph, TextRun, HeadingLevel, AlignmentType, Packer } from 'docx';
-import { put } from '@vercel/blob';
-import { randomUUID } from 'crypto';
+const { Document, Paragraph, TextRun, HeadingLevel, Packer } = require('docx');
+const { put } = require('@vercel/blob');
+const { randomUUID } = require('crypto');
 
-export const config = {
-  api: {
-    bodyParser: {
-      sizeLimit: '10mb',
-    },
-  },
-};
-
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // CORS headers for Dify integration
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -136,4 +128,4 @@ export default async function handler(req, res) {
       details: process.env.NODE_ENV === 'development' ? error.stack : undefined,
     });
   }
-}
+};
