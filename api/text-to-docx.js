@@ -95,12 +95,25 @@ module.exports = async function handler(req, res) {
       contentType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     });
 
-    // Return simplified response with just the URL and essential info
+    // Return Dify/Tsunagi AI compatible response format
     const response = {
-      url: blob.url,
-      filename: docFilename,
-      size: buffer.length,
-      download_url: blob.url
+      text: `Document created successfully: ${docFilename}`,
+      files: [
+        {
+          url: blob.url,
+          filename: docFilename,
+          size: buffer.length,
+          mime_type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        }
+      ],
+      json: {
+        url: blob.url,
+        filename: docFilename,
+        size: buffer.length,
+        download_url: blob.url,
+        paragraphs: paragraphs.length,
+        characters: text.length
+      }
     };
 
     return res.status(200).json(response);
