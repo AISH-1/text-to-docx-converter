@@ -104,29 +104,14 @@ POST https://your-project-name.vercel.app/api/text-to-docx
 | `text` | string | Yes | The plain text content to convert |
 | `filename` | string | No | Custom filename (without extension) |
 
-### Response Format (Dify-Compatible)
+### Response Format (Simplified)
 
 ```json
 {
-  "status": "success",
-  "files": [
-    {
-      "dify_model_identity": "__dify__file__",
-      "id": "uuid-here",
-      "type": "document",
-      "transfer_method": "tool_file",
-      "filename": "document-uuid.docx",
-      "extension": ".docx",
-      "mime_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-      "size": 15409,
-      "url": "https://blob-url-here.vercel-storage.com/document.docx"
-    }
-  ],
-  "metadata": {
-    "paragraphs": 3,
-    "characters": 150,
-    "created_at": "2025-11-05T12:00:00.000Z"
-  }
+  "url": "https://qz4nneka2da72x12.public.blob.vercel-storage.com/my-document-xyz123.docx",
+  "filename": "my-document.docx",
+  "size": 7420,
+  "download_url": "https://qz4nneka2da72x12.public.blob.vercel-storage.com/my-document-xyz123.docx"
 }
 ```
 

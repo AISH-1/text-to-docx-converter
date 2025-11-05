@@ -95,27 +95,12 @@ module.exports = async function handler(req, res) {
       contentType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     });
 
-    // Return Dify-formatted response
+    // Return simplified response with just the URL and essential info
     const response = {
-      status: 'success',
-      files: [
-        {
-          dify_model_identity: '__dify__file__',
-          id: fileId,
-          type: 'document',
-          transfer_method: 'tool_file',
-          filename: docFilename,
-          extension: '.docx',
-          mime_type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-          size: buffer.length,
-          url: blob.url,
-        },
-      ],
-      metadata: {
-        paragraphs: paragraphs.length,
-        characters: text.length,
-        created_at: new Date().toISOString(),
-      },
+      url: blob.url,
+      filename: docFilename,
+      size: buffer.length,
+      download_url: blob.url
     };
 
     return res.status(200).json(response);
