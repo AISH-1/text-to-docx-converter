@@ -283,10 +283,7 @@ module.exports = async function handler(req, res) {
     const characterCount = text.length;
 
     // Return Dify/Tsunagi AI compatible response format
-    return res.status(200).send({
-      text: blob.url,
-    });
-
+    return res.status(200).send(blob.url);
 
   } catch (error) {
     console.error('Error converting text to DOCX:', error);
