@@ -134,12 +134,12 @@ function parseMarkdownToDocx(markdown) {
 // Parse inline markdown (bold, italic, code, etc.)
 function parseInlineMarkdown(text) {
   const textRuns = [];
-  
+
   // Simple regex-based parsing for inline elements
   // This handles **bold**, *italic*, `code`, ~~strikethrough~~
   const regex = /(\*\*.*?\*\*|\*.*?\*|`.*?`|~~.*?~~|[^*`~]+)/g;
   const matches = text.match(regex) || [text];
-  
+
   matches.forEach(match => {
     if (match.startsWith('**') && match.endsWith('**')) {
       // Bold
@@ -210,9 +210,9 @@ module.exports = async function handler(req, res) {
 
     // Validate input
     if (!text || typeof text !== 'string') {
-      return res.status(400).json({ 
+      return res.status(400).json({
         error: 'Invalid input',
-        message: 'Text field is required and must be a string' 
+        message: 'Text field is required and must be a string'
       });
     }
 
@@ -223,9 +223,9 @@ module.exports = async function handler(req, res) {
       // Plain text mode (original behavior)
       const paragraphs = text.split('\n').filter(line => line.trim() !== '');
       docSections = paragraphs.map(paragraph => {
-        const isHeading = paragraph.startsWith('#') || 
-                          (paragraph === paragraph.toUpperCase() && paragraph.length < 50);
-        
+        const isHeading = paragraph.startsWith('#') ||
+          (paragraph === paragraph.toUpperCase() && paragraph.length < 50);
+
         if (isHeading) {
           const headingText = paragraph.replace(/^#+\s*/, '');
           return new Paragraph({
@@ -268,8 +268,8 @@ module.exports = async function handler(req, res) {
 
     // Generate unique filename
     const fileId = randomUUID();
-    const docFilename = filename 
-      ? `${filename.replace(/\.[^/.]+$/, '')}.docx` 
+    const docFilename = filename
+      ? `${filename.replace(/\.[^/.]+$/, '')}.docx`
       : `document-${fileId}.docx`;
 
     // Upload to Vercel Blob Storage
@@ -283,11 +283,10 @@ module.exports = async function handler(req, res) {
     const characterCount = text.length;
 
     // Return Dify/Tsunagi AI compatible response format
-    const response = {
-      text: blob.url
-    };
+    return res.status(200).send({
+      text: blob.url,
+    });
 
-    return res.status(200).json(response);
 
   } catch (error) {
     console.error('Error converting text to DOCX:', error);
