@@ -284,24 +284,7 @@ module.exports = async function handler(req, res) {
 
     // Return Dify/Tsunagi AI compatible response format
     const response = {
-      text: `Document created successfully: ${docFilename}`,
-      files: [
-        {
-          url: blob.url,
-          filename: docFilename,
-          size: buffer.length,
-          mime_type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-        }
-      ],
-      json: {
-        url: blob.url,
-        filename: docFilename,
-        size: buffer.length,
-        download_url: blob.url,
-        paragraphs: paragraphCount,
-        characters: characterCount,
-        format: format === 'plain' ? 'plain' : 'markdown'
-      }
+      text: blob.url
     };
 
     return res.status(200).json(response);
